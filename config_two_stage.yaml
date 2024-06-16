@@ -1,0 +1,83 @@
+model_dilation:
+  type: FR_UNet
+  args:
+    {}
+
+model_tuning:
+  type: RMR
+  args:
+    {}
+
+loss_BCE:
+  type: BCELoss
+  args:
+    {}
+
+loss_DICE:
+  type: FocalLoss
+  args:
+    {}
+
+loss_WBCE:
+  type: BCELossWithWeights
+  args:
+    {}
+
+optimizer:
+  type: Adam
+  args:
+    lr: 1e-4
+    weight_decay: 1e-5
+
+lr_scheduler:
+  type: CosineAnnealingLR
+  args:
+    T_max: 80
+    # eta_min: 1e-5
+    
+
+
+# #对model1的优化器
+# optimizer1:
+#   type: Adam
+#   args:
+#     lr: 1e-4
+#     weight_decay: 1e-5
+
+# #对model2的优化器
+# optimizer2:
+#   type: Adam
+#   args:
+#     lr: 1e-4
+#     weight_decay: 1e-5
+
+# #对model1 的学习率调整
+# lr_scheduler1:
+#   type: CosineAnnealingLR
+#   args:
+#     T_max: 40
+
+# #对model2 的学习率调整
+# lr_scheduler2:
+#   type: CosineAnnealingLR
+#   args:
+#     T_max: 40
+
+epochs: 80
+save_dir: saved/
+val_per_epochs: 1
+save_period: 2
+tensorboard: true
+threshold: 0.5
+threshold_low: 0.3
+DTI: false
+amp: true
+tta: false
+CCC: false
+patch_size: 48
+patch_stride: 6
+
+freeze_model1: True
+
+pretrained_model1_path: /root/FR-UNet-master/saved/FR_UNet/4-13-dilation-supervised-only-with-F5/checkpoint-epoch40.pth
+# pretrained_model2_path: /root/FR-UNet-master/saved/FR_UNet/4-5-MIM-Pretrain-allmask/checkpoint-epoch40.pth
